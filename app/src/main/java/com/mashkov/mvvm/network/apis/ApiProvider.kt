@@ -4,25 +4,19 @@ import com.mashkov.mvvm.BuildConfig
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import okhttp3.OkHttpClient
+import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 
 abstract class ApiProvider {
 
-    protected lateinit var okHttpClient: OkHttpClient
+    private lateinit var okHttpClient: OkHttpClient
 
-    protected val apis: MutableMap<Class<*>, Any> = HashMap()
+    private val apis: MutableMap<Class<*>, Any> = HashMap()
 
     private val moshi: Moshi = Moshi.Builder()
         .add(KotlinJsonAdapterFactory())
         .build()
-
-//    private val interceptors: MutableSet<DiiaInterceptor> = mutableSetOf(
-//        AppInfoHeaderInterceptor(),
-//        AnalyticsInterceptor(),
-//        RetryInterceptor(),
-//        DiiaHttpLoggingInterceptor(),
-//    )
 
     abstract fun isInitialized(): Boolean
 
@@ -48,21 +42,12 @@ abstract class ApiProvider {
     }
 
     protected fun initHttpClient() {
-        val builder = OkHttpClient.Builder()/*.apply {
-            setTimeout()
-            preMarshmallowSetUp()
-            setCert()
-            debugSetUp()
-        }
-        interceptors.sortedBy { it.getWeight() }.forEach {
-            builder.addInterceptor(it)
-        }*/
-        this.okHttpClient = builder.build()
+        this.okHttpClient = OkHttpClient
+            .Builder()
+            .addInterceptor(HttpLoggingInterceptor())
+            .build()
     }
 
-//    protected fun addInterceptor(interceptor: DiiaInterceptor) {
-//        interceptors.add(interceptor)
-//    }
 
     protected val isOkHttpClientInitialized get() = this::okHttpClient.isInitialized
 

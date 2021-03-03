@@ -5,10 +5,10 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.mashkov.mvvm.models.User
-import com.mashkov.mvvm.network.apis.AppApi
+import com.mashkov.mvvm.network.apis.GlobalApi
 import kotlinx.coroutines.launch
 
-class UserInfoFVM(private val appApi: AppApi) : ViewModel() {
+class UserInfoFVM(private val appApi: GlobalApi) : ViewModel() {
     private val _user = MutableLiveData<User>()
     val user: LiveData<User>
         get() = _user

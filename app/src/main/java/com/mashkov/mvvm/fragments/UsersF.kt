@@ -11,12 +11,12 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.mashkov.mvvm.adapters.UserAdapter
 import com.mashkov.mvvm.databinding.FragmentUsersBinding
-import com.mashkov.mvvm.network.apis.AppApi
+import com.mashkov.mvvm.network.apis.GlobalApi
 import com.mashkov.mvvm.util.navigate
 
 @Suppress("UNCHECKED_CAST")
 class UsersFVMFactory(
-    private val api: AppApi,
+    private val api: GlobalApi,
 ) :
     ViewModelProvider.NewInstanceFactory() {
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
@@ -25,7 +25,7 @@ class UsersFVMFactory(
 }
 
 class UsersF : Fragment() {
-    private val vm: UserFVM by activityViewModels { UsersFVMFactory(AppApi) }
+    private val vm: UserFVM by activityViewModels { UsersFVMFactory(GlobalApi) }
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,

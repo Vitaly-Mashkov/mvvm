@@ -1,6 +1,6 @@
 package com.mashkov.mvvm.network.apis
 
-object AppApi : ApiProvider() {
+object GlobalApi : ApiProvider() {
 
     fun initialize() {
         initHttpClient()

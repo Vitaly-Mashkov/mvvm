@@ -10,11 +10,11 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.navArgs
 import com.mashkov.mvvm.databinding.FragmentUserInfoBinding
-import com.mashkov.mvvm.network.apis.AppApi
+import com.mashkov.mvvm.network.apis.GlobalApi
 
 @Suppress("UNCHECKED_CAST")
 class UserInfoFVMFactory(
-    private val api: AppApi,
+    private val api: GlobalApi,
 ) :
     ViewModelProvider.NewInstanceFactory() {
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
@@ -23,7 +23,7 @@ class UserInfoFVMFactory(
 }
 
 class UserInfoF: Fragment() {
-    private val vm: UserInfoFVM by activityViewModels { UserInfoFVMFactory(AppApi) }
+    private val vm: UserInfoFVM by activityViewModels { UserInfoFVMFactory(GlobalApi) }
     private val args: UserInfoFArgs by navArgs()
 
     override fun onCreateView(
