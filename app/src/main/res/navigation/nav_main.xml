@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<navigation
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/nav_main"
     app:startDestination="@id/usersFrargment">
@@ -8,6 +7,22 @@
     <fragment
         android:id="@+id/usersFrargment"
         android:name="com.mashkov.mvvm.fragments.UsersF"
-        android:label="UsersFrargment" />
+        android:label="UsersFrargment">
+        <action
+            android:id="@+id/action_usersFrargment_to_userInfoF"
+            app:destination="@id/userInfoF">
+            <argument
+                android:name="login"
+                app:argType="string" />
+        </action>
+    </fragment>
+    <fragment
+        android:id="@+id/userInfoF"
+        android:name="com.mashkov.mvvm.fragments.UserInfoF"
+        android:label="UserInfoF">
+        <argument
+            android:name="login"
+            app:argType="string" />
+    </fragment>
 
 </navigation>

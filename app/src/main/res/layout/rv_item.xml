@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="user"
+            type="com.mashkov.mvvm.models.User" />
+    </data>
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_margin="@dimen/card_margin"
+        android:elevation="@dimen/card_elevation"
+        android:foreground="?android:attr/selectableItemBackground"
+        app:cardCornerRadius="@dimen/card_album_radius">
+
+        <include
+            layout="@layout/layout_user_info"
+            android:id="@+id/userInfo"
+            app:user="@{user}"/>
+
+    </androidx.cardview.widget.CardView>
+
+</layout>

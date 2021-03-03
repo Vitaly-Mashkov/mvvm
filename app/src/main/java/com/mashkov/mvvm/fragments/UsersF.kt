@@ -8,8 +8,11 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
+import com.mashkov.mvvm.adapters.UserAdapter
 import com.mashkov.mvvm.databinding.FragmentUsersBinding
 import com.mashkov.mvvm.network.apis.AppApi
+import com.mashkov.mvvm.util.navigate
 
 @Suppress("UNCHECKED_CAST")
 class UsersFVMFactory(
@@ -32,10 +35,13 @@ class UsersF : Fragment() {
         vm.getUsers()
         vm.apply {
             users.observe(viewLifecycleOwner) {
-
-                binding.text.text = it
-                    .first().htmlURL
-
+                binding.rvUsers.adapter = UserAdapter(it) { login ->
+                    login?.let {
+                        navigate(
+                            UsersFDirections.actionUsersFrargmentToUserInfoF(login), findNavController()
+                        )
+                    }
+                }
             }
         }
         return binding.root

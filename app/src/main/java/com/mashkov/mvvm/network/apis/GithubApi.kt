@@ -8,6 +8,6 @@ interface GithubApi {
     @GET("/users")
     suspend fun getUsers(): List<User>
 
-    @GET("/users/{user}")
-    suspend fun getUser(@Path("user") user: String): User
+    @GET("/users/{login}")
+    suspend fun getUser(@Path("login") login: String): User
 }
