@@ -48,7 +48,6 @@ abstract class ApiProvider {
             .build()
     }
 
-
     protected val isOkHttpClientInitialized get() = this::okHttpClient.isInitialized
 
 }

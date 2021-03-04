@@ -10,6 +10,15 @@ import com.bumptech.glide.load.engine.GlideException
 import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.target.Target
 
+@BindingAdapter("isGone")
+fun bindIsGone(view: View, isGone: Boolean) {
+    view.visibility = if (isGone) {
+        View.GONE
+    } else {
+        View.VISIBLE
+    }
+}
+
 @BindingAdapter(value = ["fromUrl", "progressbar"], requireAll = false)
 fun bindFromUrl(view: ImageView, fromUrl: String?, progressbar: View?) {
     fromUrl?.let {

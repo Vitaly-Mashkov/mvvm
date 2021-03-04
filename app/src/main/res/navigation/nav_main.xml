@@ -4,6 +4,24 @@
     android:id="@+id/nav_main"
     app:startDestination="@id/usersFrargment">
 
+    <action
+        android:id="@+id/action_global_to_system_dialog"
+        app:destination="@+id/systemDF">
+        <argument
+            android:name="dialog"
+            app:argType="com.mashkov.mvvm.models.SystemDialog" />
+    </action>
+
+    <dialog
+        android:id="@+id/systemDF"
+        android:name="com.mashkov.mvvm.fragments.dialogs.SystemDF"
+        android:label="SystemDF">
+        <argument
+            android:name="dialog"
+            app:argType="com.mashkov.mvvm.models.SystemDialog" />
+    </dialog>
+
+
     <fragment
         android:id="@+id/usersFrargment"
         android:name="com.mashkov.mvvm.fragments.UsersF"

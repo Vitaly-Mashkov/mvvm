@@ -11,6 +11,8 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.mashkov.mvvm.adapters.UserAdapter
 import com.mashkov.mvvm.databinding.FragmentUsersBinding
+import com.mashkov.mvvm.fragments.dialogs.DiiaSystemDFVM
+import com.mashkov.mvvm.models.SystemDialog
 import com.mashkov.mvvm.network.apis.GlobalApi
 import com.mashkov.mvvm.util.navigate
 
@@ -26,6 +28,7 @@ class UsersFVMFactory(
 
 class UsersF : Fragment() {
     private val vm: UserFVM by activityViewModels { UsersFVMFactory(GlobalApi) }
+    private val dialogVm: DiiaSystemDFVM by activityViewModels()
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -38,10 +41,31 @@ class UsersF : Fragment() {
                 binding.rvUsers.adapter = UserAdapter(it) { login ->
                     login?.let {
                         navigate(
-                            UsersFDirections.actionUsersFrargmentToUserInfoF(login), findNavController()
+                            UsersFDirections.actionUsersFrargmentToUserInfoF(login),
+                            findNavController()
                         )
                     }
                 }
+            }
+            error.observe(viewLifecycleOwner) {
+                navigate(
+                    UsersFDirections.actionGlobalToSystemDialog(
+                        SystemDialog(
+                            "Something going wrong!",
+                            "Error occured",
+                            "Retry",
+                            "Close"
+                        )
+                    ), findNavController()
+                )
+            }
+        }
+        dialogVm.action.observe(viewLifecycleOwner) {
+            when (it.getContentIfNotHandled()) {
+                DiiaSystemDFVM.Action.POSITIVE ->
+                    vm.getUsers()
+                DiiaSystemDFVM.Action.NEGATIVE ->
+                    activity?.finish()
             }
         }
         return binding.root
